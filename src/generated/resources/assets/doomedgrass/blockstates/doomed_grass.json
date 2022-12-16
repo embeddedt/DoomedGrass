@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "decay=0": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=1": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=10": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=11": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=12": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=13": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=14": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=15": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=2": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=3": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=4": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=5": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=6": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=7": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=8": {
+      "model": "doomedgrass:block/doomed_grass"
+    },
+    "decay=9": {
+      "model": "doomedgrass:block/doomed_grass"
+    }
+  }
+}

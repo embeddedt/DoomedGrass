@@ -1,0 +1,6 @@
+{
+  "block.doomedgrass.doomed_grass": "Doomed Grass Block",
+  "doomed_grass.description.doomed_grass_block": "Created by right-clicking with a Doomed Fragment on a dirt-like block. Spawns monsters at a heavily increased rate",
+  "item.doomedgrass.doomed_fragment": "Doomed Fragment",
+  "itemGroup.doomedgrass": "Doomed Grass"
+}
