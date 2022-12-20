@@ -68,10 +68,6 @@ public class DoomedGrassBlock extends Block {
         }
     }
 
-    private Optional<MobSpawnSettings.SpawnerData> findMob(ServerLevel worldServer, BlockPos pos, RandomSource rand) {
-        return NaturalSpawner.getRandomSpawnMobAt(worldServer, worldServer.structureManager(), worldServer.getChunkSource().getGenerator(), MobCategory.MONSTER, rand, pos);
-    }
-
     @Override
     public boolean isFireSource(BlockState state, LevelReader level, BlockPos pos, Direction direction) {
         return direction == Direction.UP;
@@ -89,17 +85,26 @@ public class DoomedGrassBlock extends Block {
 
         AABB nearbyEntityBox = new AABB(pos).inflate(7, 4, 7);
         if(level.getEntitiesOfClass(LivingEntity.class, nearbyEntityBox, e -> e instanceof Monster).size() < 8) {
-            findMob(level, spawnPos, rand).ifPresent(spawnData -> {
-                var entity = spawnData.type.create(level);
-                if(!(entity instanceof Mob mob)) {
-                    return;
+            for(int i = 0; i < 3; i++) {
+                var potentialData = NaturalSpawner.getRandomSpawnMobAt(level, level.structureManager(), level.getChunkSource().getGenerator(), MobCategory.MONSTER, rand, spawnPos);
+                if(potentialData.isPresent()) {
+                    var spawnData = potentialData.get();
+                    BlockPos.MutableBlockPos spawnMutable = new BlockPos.MutableBlockPos();
+                    spawnMutable.set(spawnPos);
+                    if(!NaturalSpawner.isValidSpawnPostitionForType(level, MobCategory.MONSTER, level.structureManager(), level.getChunkSource().getGenerator(), spawnData, spawnMutable, 1))
+                        continue;
+                    var entity = spawnData.type.create(level);
+                    if(!(entity instanceof Mob mob)) {
+                        continue;
+                    }
+                    mob.moveTo(spawnPos, 0, 0);
+                    if(!ForgeEventFactory.doSpecialSpawn(mob, level, (float)mob.getX(), (float)mob.getY(), (float)mob.getZ(), null, MobSpawnType.NATURAL)) {
+                        mob.finalizeSpawn(level, level.getCurrentDifficultyAt(spawnPos), MobSpawnType.NATURAL, null, null);
+                        level.addFreshEntity(mob);
+                        return;
+                    }
                 }
-                mob.moveTo(spawnPos, 0, 0);
-                if(!ForgeEventFactory.doSpecialSpawn(mob, level, (float)mob.getX(), (float)mob.getY(), (float)mob.getZ(), null, MobSpawnType.NATURAL)) {
-                    mob.finalizeSpawn(level, level.getCurrentDifficultyAt(spawnPos), MobSpawnType.NATURAL, null, null);
-                    level.addFreshEntity(mob);
-                }
-            });
+            }
         }
     }
 
